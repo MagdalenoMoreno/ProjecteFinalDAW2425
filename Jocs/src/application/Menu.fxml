@@ -45,12 +45,12 @@
          <children>
             <ImageView fx:id="imgPixelArt" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/pixelart.png" />
+                  <Image url="@img/pixelart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgBuscaMines" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/buscamines.png" />
+                  <Image url="@img/buscamines.png" />
                </image>
             </ImageView>
          </children>
@@ -65,12 +65,12 @@
          <children>
             <ImageView fx:id="imgJocVida" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/jocdelavida.png" />
+                  <Image url="@img/jocdelavida.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgWordles" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/wordle.png" />
+                  <Image url="@img/wordle.png" />
                </image>
             </ImageView>
          </children>

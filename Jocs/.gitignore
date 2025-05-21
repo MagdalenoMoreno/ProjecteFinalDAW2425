@@ -1,1 +1,32 @@
 /bin/
+# === Eclipse ===
+.project
+.classpath
+.settings/
+
+# === Java build ===
+bin/
+*.class
+
+# === JavaFX SDK (si se descarga localmente) ===
+javafx-sdk*/
+lib/
+
+# === Logs ===
+*.log
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === IntelliJ IDEA (por si alguien lo usa) ===
+.idea/
+*.iml
+out/
+
+# === VSCode (por si alguien lo usa) ===
+.vscode/
+
+# === Maven / Gradle (si lo usas) ===
+target/
+build/

@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -76,7 +77,7 @@ public class MenuController implements Initializable {
 	
 	// Boto per a entrar als jocs
 	@FXML
-	public void obrirBuscaMines(ActionEvent event) {
+	public void obrirBuscaMines(MouseEvent event) {
 		try {
 			VBox rootBuscaMines = (VBox) FXMLLoader.load(getClass().getResource("TamanyBuscamines.fxml"));
 			Scene pantallaBuscaMines = new Scene(rootBuscaMines); // Probabilitat de fallar ImageView damunt del boto
@@ -91,7 +92,7 @@ public class MenuController implements Initializable {
 	}
 
 	@FXML
-	public void obrirPixelArt(ActionEvent event) {
+	public void obrirPixelArt(MouseEvent event) {
 		try {
 			VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("PixelArt.fxml"));
 			Scene pantallaPixelArt = new Scene(rootPixelArt); // Probabilitat de fallar ImageView damunt del boto
@@ -106,7 +107,7 @@ public class MenuController implements Initializable {
 	}
 
 	@FXML
-	public void obrirJocVida(ActionEvent event) {
+	public void obrirJocVida(MouseEvent event) {
 		try {
 			VBox rootJocVida = (VBox) FXMLLoader.load(getClass().getResource("JocVida.fxml"));
 			Scene pantallaJocVida = new Scene(rootJocVida); // Probabilitat de fallar ImageView damunt del boto
@@ -121,7 +122,7 @@ public class MenuController implements Initializable {
 	}
 
 	@FXML
-	public void obrirWordles(ActionEvent event) {
+	public void obrirWordles(MouseEvent event) {
 		try {
 			VBox rootWordles = (VBox) FXMLLoader.load(getClass().getResource("Wordle.fxml"));
 			Scene pantallaWordles = new Scene(rootWordles); // Probabilitat de fallar ImageView damunt del boto
@@ -136,7 +137,8 @@ public class MenuController implements Initializable {
 	}
 
 	// Boton cerrar sesion
-	public void logout(ActionEvent event) {
+	@FXML
+	public void logout(MouseEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene pantallaIrLogin = new Scene(rootLogout);
@@ -152,7 +154,7 @@ public class MenuController implements Initializable {
 	
 	// Boton borrar usuairo
 	@FXML
-	public void borrarUsuari(ActionEvent event) throws ClassNotFoundException, IOException {
+	public void borrarUsuari(MouseEvent event) throws ClassNotFoundException, IOException {
 		try {
 			// Carregar el controlador per a la BD
 			Class.forName("com.mysql.cj.jdbc.Driver");
