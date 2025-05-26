@@ -7,19 +7,24 @@ public class Usuaris {
 	public String cognoms;
 	public String email;
 	public String poblacio;
-	public String contrasenya;
+	public String contrasenyaHash;
+	public String salt;
+	public String img;
 	
 	// constructor
-	public Usuaris(String nom, String cognoms, String email, String poblacio, String contrasenya) {
+	public Usuaris(String nom, String cognoms, String email, String poblacio, String contrasenyaHash, String salt, String img) {
 		super();
 
 		this.nom = nom;
 		this.cognoms = cognoms;
 		this.email = email;
 		this.poblacio = poblacio;
-		this.contrasenya = contrasenya;
+        this.contrasenyaHash = contrasenyaHash;
+        this.salt = salt;
+        this.img = img;
 	}
 
+	
 	// getters i setters
 	public String getNom() {
 		return nom;
@@ -53,19 +58,34 @@ public class Usuaris {
 		this.poblacio = poblacio;
 	}
 
-	public String getContrasenya() {
-		return contrasenya;
+	public String getContrasenyaHash() {
+		return contrasenyaHash;
 	}
 
-	public void setContrasenya(String contraseña) {
-		this.contrasenya = contraseña;
+	public void setContrasenyaHash(String contrasenyaHash) {
+		this.contrasenyaHash = contrasenyaHash;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuaris [nom=" + nom + ", cognoms=" + cognoms + ", email=" + email + ", poblacio=" + poblacio
-				+ ", contrasenya=" + contrasenya + "]";
+	public String getSalt() {
+		return salt;
 	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	
+	
+
+
 	
 	
 	
