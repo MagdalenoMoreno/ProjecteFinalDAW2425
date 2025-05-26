@@ -1,14 +1,17 @@
 package application;
 
 import java.net.URL;
+import java.security.spec.KeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
-import com.gluonhq.charm.glisten.control.Avatar;
-
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javafx.scene.image.ImageView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +33,7 @@ public class LoginController implements Initializable {
 	// Objecte a compartir amb l'altra escena
 	private Usuaris usuariActual;
 
+	// Utilizar atributs Usuaris
 	public void setUsuari(Usuaris usuariActual) {
 		this.usuariActual = usuariActual;
 	}
@@ -40,7 +44,7 @@ public class LoginController implements Initializable {
 
 	// Variables
 	@FXML
-	private Avatar avatarImg;
+	private ImageView avatarImg;
 	@FXML
 	private Label textoBienvenidoLogin;
 	@FXML
@@ -56,24 +60,175 @@ public class LoginController implements Initializable {
 
 	public void iniciarSesio(ActionEvent event) throws ClassNotFoundException {
 
-		String email = emailValid();
-		contrasenyaValid(email);
+		if (emailExisteix() && contrasenyaValid()) {
+			try {
+				this.setUsuari(crearUsuariObj());
+				System.out.println("Nom: " + usuariActual.getNom());
+				System.out.println("Cognoms: " + usuariActual.getCognoms());
+				System.out.println("Email: " + usuariActual.getEmail());
+				System.out.println("Poblacio: " + usuariActual.getPoblacio());
+				if (usuariActual != null) {
 
+					// obrirMenu(event);
+					VBox rootMenu = (VBox) FXMLLoader.load(getClass().getResource("Menu.fxml"));
+					Scene pantallaMenu = new Scene(rootMenu);
+					Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					pantallaMenu.getStylesheets().add(getClass().getResource("menu.css").toExternalForm());
+					window.setUserData(usuariActual);
+					window.setScene(pantallaMenu);
+					window.setTitle("Menu");
+					window.show();
+				} else {
+					System.out.println("No sea creat el usuari");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			alertaError("Email - Contraseña", "El email i la contraseny no coincideixen ");
+		}
+
+	}
+
+	// Comprobar que el email esta en la base de datos
+	public boolean emailExisteix() {
 		try {
-			usuariActual = (Usuaris) crearUsuariObj(email);
+			// Variables
+			String email = textoEmailLogin.getText();
 
-			if (usuariActual != null) {
-				obrirMenu(event);
+			// comprobar si esta en blanc
+			if (email.isBlank()) {
+				alertaError("Email", "No pot estar en blanc. ");
+				return false;
+			}
+
+			// Carregar el controlador per a la BD
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// Establir la connexió
+			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
+			String usuari = "root";
+			String contrasenya = "Lulolo05";
+
+			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
+
+			String sentencia = "SELECT * FROM usuarios WHERE email = ?";
+			PreparedStatement s = c.prepareStatement(sentencia);
+			s.setString(1, email);
+
+			ResultSet r = s.executeQuery();
+
+			if (r.next()) {// si no existeix
+				System.out.println("Email registrar. ");
+				return true;
 			} else {
-				System.out.println("No sea creat el usuari");
+				alertaError("Email ", "El email no esta registrat. ");
+				return false;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return false;
 	}
-	
+
+	// Comprobar que la contraseña coincideix en el email
+	public boolean contrasenyaValid() {
+		try {
+			// Variables
+			String email = textoEmailLogin.getText();
+			String contrasenya = textoContrasenyaLogin.getText();
+
+			int iterations = 65536;
+			int keyLength = 256; // bits
+
+			if (contrasenya.isBlank()) {
+				alertaError("Email", "No pot estar en blanc. ");
+				return false;
+			}
+
+			// Carregar el controlador per a la BD
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// Establir la connexió
+			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
+			String usuari = "root";
+			String contrasenya1 = "Lulolo05";
+
+			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
+
+			String sentencia = "SELECT contasenyaHash, salt FROM usuarios WHERE email = ?";
+			PreparedStatement s = c.prepareStatement(sentencia);
+			s.setString(1, email);
+			ResultSet r = s.executeQuery();
+
+			if (r.next()) {
+				String hashBD = r.getString("contasenyaHash");
+				String saltBase64 = r.getString("salt");
+				byte[] salt = Base64.getDecoder().decode(saltBase64);
+
+				// crear hash
+				KeySpec spec = new PBEKeySpec(contrasenya.toCharArray(), salt, iterations, keyLength);
+
+				SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+				byte[] hashCalculado = factory.generateSecret(spec).getEncoded();
+				String hashCalculadoBase64 = Base64.getEncoder().encodeToString(hashCalculado);
+
+				if (hashCalculadoBase64.equals(hashBD)) {
+					System.out.println("Les contrasenyes coincideixen");
+				} else {
+					System.out.println("Les contrasenyes no coincideixen");
+				}
+				return true;
+
+			} else {
+				alertaError("Contraseña ", "La contraseña no es correcta. ");
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// Crear el objecte Usuari per a pasar els datos entre controladors
+	public Usuaris crearUsuariObj() {
+		try {
+			String email = textoEmailLogin.getText();
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// Establir la connexió
+			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
+			String usuari = "root";
+			String contrasenya1 = "Lulolo05";
+
+			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
+
+			String sentencia = "SELECT * FROM usuarios WHERE email = ?";
+			PreparedStatement s = c.prepareStatement(sentencia);
+			s.setString(1, email);
+			ResultSet r = s.executeQuery();
+
+			if (r.next()) {
+				Usuaris u = new Usuaris(r.getString("nom"), r.getString("cognoms"), r.getString("email"),
+						r.getString("poblacio"), r.getString("contasenyaHash"), r.getString("salt"),
+						r.getString("img"));
+				return u;
+
+			} else {
+				alertaError("Usuari ", "No a sigut creat. ");
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	// Boto registre que envia al registre
 	@FXML
 	public void obrirRegistre(ActionEvent event) {
@@ -83,7 +238,7 @@ public class LoginController implements Initializable {
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			pantallaRegistre.getStylesheets().add(getClass().getResource("registre.css").toExternalForm());
 			window.setScene(pantallaRegistre);
-			window.setTitle("Registre de usuari");
+			window.setTitle("Registre");
 			window.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,150 +271,22 @@ public class LoginController implements Initializable {
 		alerta.showAndWait();
 	}
 
-	/*
-	 * public Usuaris crearUsuariObj(ResultSet r) { 
-	 * try {
-	 * 
-	 * String nom = r.getString("nom"); String cognoms = r.getString("cognoms");
-	 * String email = r.getString("email"); String poblacio =
-	 * r.getString("poblacio"); String contrasenya = r.getString("contrasenya");
-	 * 
-	 * Usuaris u = new Usuaris(nom, cognoms, email, poblacio, contrasenya);
-	 * 
-	 * return u;
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); return null; }
-	 * 
-	 * }
-	 */
-	
-	// Comprobar que el email esta en la base de datos
-
-	// comprobar email
-	public String emailValid() {
-		try {
-			// Variables
-
-			String email = textoEmailLogin.getText();
-
-			// comprobar si esta en blanc
-			if (email.isBlank()) {
-				alertaError("Email", "No pot estar en blanc. ");
-				return null;
-			}
-
-			// Carregar el controlador per a la BD
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// Establir la connexió
-			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
-			String usuari = "root";
-			String contrasenya = "Lulolo05";
-
-			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
-
-			String sentencia = "SELECT * FROM usuarios WHERE email = ?";
-			PreparedStatement s = c.prepareStatement(sentencia);
-			s.setString(1, email);
-
-			ResultSet r = s.executeQuery();
-
-			if (r.next()) {// si no existeix
-				System.out.println("Email registrar. ");
-				return email;
-			} else {
-				alertaError("Email ", "El email no esta registrat. ");
-				return null;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	// Comprobar que la contraseña es la del email anterior
-	// comprobar contraseña
-	public String contrasenyaValid(String email) {
-		try {
-			String contrasenya = textoContrasenyaLogin.getText();
-
-			if (contrasenya.isBlank()) {
-				alertaError("Email", "No pot estar en blanc. ");
-				return null;
-			}
-
-			// Carregar el controlador per a la BD
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// Establir la connexió
-			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
-			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
-
-			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
-
-			String sentencia = "SELECT * FROM usuarios WHERE email = ? AND contraseña = ?";
-			PreparedStatement s = c.prepareStatement(sentencia);
-			s.setString(1, email);
-			s.setString(2, contrasenya);
-			ResultSet r = s.executeQuery();
-
-			if (r.next()) {
-				return contrasenya;
-			} else {
-				alertaError("Contraseña ", "La contraseña no es correcta. ");
-				return null;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	// Crear el objecte Usuari per a pasar els datos entre controladors
-	// crear el objecte usuari per a poder pasar els datos 
-	public Object crearUsuariObj(String email) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// Establir la connexió
-			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
-			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
-
-			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
-
-			String sentencia = "SELECT * FROM usuarios WHERE email = ?";
-			PreparedStatement s = c.prepareStatement(sentencia);
-			s.setString(1, email);
-			ResultSet r = s.executeQuery();
-
-			if (r.next()) {
-				Usuaris u = new Usuaris(r.getString("nom"), r.getString("cognoms"), r.getString("email"),
-						r.getString("poblacio"), r.getString("contrasenya"));
-				return u;
-			} else {
-				System.out.println("");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// Mostrar login sin Bienvenida
-	// Registrar usuari
-	// ir al login con el texto de bienvenida añadido
-	// textoBienvenido.setText("Bienvenido, " + usuariActual.getNom());
+	// Mostrar login con texto Bienvenida
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		Platform.runLater(() -> {
+			Stage stage = (Stage) textoBienvenidoLogin.getScene().getWindow();
+			Object userData = stage.getUserData();
 
+			if (userData instanceof Usuaris) {
+				Usuaris usuari = (Usuaris) userData;
+				textoBienvenidoLogin.setText("Bienvenido " + usuari.getNom());
+			} else if (userData instanceof String) {
+				String nom = (String) userData;
+				textoBienvenidoLogin.setText("Bienvenido " + nom);
+			} else {
+				textoBienvenidoLogin.setText("Bienvenido");
+			}
 		});
 	}
-
 }

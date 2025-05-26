@@ -1,14 +1,21 @@
 package application;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
-import com.gluonhq.charm.glisten.control.Avatar;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javafx.scene.image.ImageView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +34,7 @@ public class RegistreController implements Initializable {
 
 	// Variables
 	@FXML
-	private Avatar avatarImg;
+	private ImageView avatarImg;
 	@FXML
 	private TextField textoNomRegistre;
 	@FXML
@@ -44,33 +51,43 @@ public class RegistreController implements Initializable {
 	private Button botoRegistreEnviar;
 	@FXML
 	private Button botoVolverInici;
-	
-	// Comprobar que ninguna funcio dona null i finalment crida a la funcio guardar usuari
+
+	// Comprobar que ninguna funcio dona null i finalment crida a la funcio guardar
+	// usuari
 	@FXML
 	public void registrarUsuari(ActionEvent event) throws ClassNotFoundException {
 		// Variables
 		String nom = textoNomRegistre.getText();
 		String cognoms = textoCognomsRegistre.getText();
-
 		String email = textoEmailRegistre.getText();
 		String poblacio = textoPoblacioRegistre.getText();
 		String contrasenya = textoContrasenyaRegistre.getText();
 		String confirmarContrasenya = textoConfirmarContrasenyaRegistre.getText();
 
 		// Funciones comprovacion i insert BD
-		
+
 		String inserirNom = nomRegistre(nom);
 		String inserirCognoms = cognomsRegistre(cognoms);
 		String inserirEmail = emailRegistre(email);
 		String inserirPoblacio = poblacioRegistre(poblacio);
 		String inserirContrasenya = contrasenyaRegistre(contrasenya, confirmarContrasenya);
-		
-	    if (inserirNom == null || inserirCognoms == null || inserirEmail == null || inserirPoblacio == null || inserirContrasenya == null) {
-	        return;
-	    }
-		
-		try {	
-			guardarUsuari(inserirNom, inserirCognoms, inserirEmail, inserirPoblacio, inserirContrasenya);
+
+		if (inserirNom == null || inserirCognoms == null || inserirEmail == null || inserirPoblacio == null
+				|| inserirContrasenya == null) {
+			return;
+		}
+
+		byte[] salt = crearSalt();
+		String inserirContrasenyaHash = crearHashSalt(contrasenya, salt);
+		String inserirSalt = Base64.getEncoder().encodeToString(salt);
+
+		if (inserirContrasenyaHash == null || inserirSalt == null) {
+			return;
+		}
+
+		try {
+			guardarUsuari(inserirNom, inserirCognoms, inserirEmail, inserirPoblacio, inserirContrasenyaHash,
+					inserirSalt);
 
 			obrirLogin(event);
 
@@ -79,7 +96,7 @@ public class RegistreController implements Initializable {
 		}
 
 	}
-	
+
 	// Alertes de errors
 	public void alertaError(String camp, String error) {
 		Alert alerta = new Alert(AlertType.WARNING);
@@ -93,7 +110,7 @@ public class RegistreController implements Initializable {
 	public String nomRegistre(String nom) {
 		nom = textoNomRegistre.getText();
 		if (!nom.isBlank()) {
-			if (nom.matches("^[a-zA-Z_-]{3,20}$")) { // no pot tindre numeros
+			if (nom.matches("^[a-zA-Z_-]{3,6}$")) { // no pot tindre numeros
 			} else {
 				alertaError("Nom ", "El formato no es valid. ");
 				return null;
@@ -108,7 +125,8 @@ public class RegistreController implements Initializable {
 	public String cognomsRegistre(String cognoms) {
 		cognoms = textoCognomsRegistre.getText();
 		if (!cognoms.isBlank()) {
-			if (cognoms.matches("^[a-zA-ZñÑçÇáÁéÉíÍóÓúÚüÜàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛ]+(?:\\s[a-zA-ZñÑçÇáÁéÉíÍóÓúÚüÜàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛ]+){0,2}$")) {
+			if (cognoms.matches(
+					"^[a-zA-ZñÑçÇáÁéÉíÍóÓúÚüÜàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛ]+(?:\\s[a-zA-ZñÑçÇáÁéÉíÍóÓúÚüÜàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛ]+){0,2}$")) {
 			} else {
 				alertaError("Cognoms ", "Formato invalid. ");
 				return null;
@@ -123,7 +141,7 @@ public class RegistreController implements Initializable {
 	public String emailRegistre(String email) throws ClassNotFoundException {
 		email = textoEmailRegistre.getText();
 		if (!email.isBlank()) {
-			if (email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) { // Te que tindre una paraula + @ + paruala + caracter punt + acabar en una paraula de 2 o mes.
+			if (email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) { 
 			} else {
 				alertaError("Email ", "Formato invalid. ");
 				return null;
@@ -136,7 +154,7 @@ public class RegistreController implements Initializable {
 		// Si el email no esta en la base de datos la guarda
 
 		try {
-			// Carregar el controlador per a la BD 
+			// Carregar el controlador per a la BD
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// Establir la connexió
@@ -181,8 +199,9 @@ public class RegistreController implements Initializable {
 
 	public String contrasenyaRegistre(String contrasenya, String confirmarContrasenya) {
 		if (!contrasenya.isBlank()) {
-			if (contrasenya.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")) {
+			if (contrasenya.matches("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])\\S{8,16}$")) {
 				if (contrasenya.equals(confirmarContrasenya)) {
+					return contrasenya;
 				} else {
 					alertaError("Contraseña ", "La contraseña no coincideixen ");
 					return null;
@@ -195,16 +214,50 @@ public class RegistreController implements Initializable {
 			alertaError("Contraseña ", "No pot estar en blanc.  ");
 			return null;
 		}
-		return contrasenya;
+	}
+
+	// crear un salt de hash per a major seguretat
+	public byte[] crearSalt() {
+		byte[] salt = new byte[16];
+		new SecureRandom().nextBytes(salt);
+		return salt;
+	}
+
+	// generar el hash amb el salt 
+	public String crearHashSalt(String contrasenya, byte[] salt) {
+		String password = contrasenya;
+		String contrasenyaHash = null;
+
+		// aquests valors es poden establir per defecte, igual per a tots els hash
+		int fortalesa = 65536; // iteracions que realitzarà l'algorisme
+		int longitudHash = 64 * 8; // quantitat de bytes * 8
+
+		// Procés de Hash
+		try {
+			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, fortalesa, longitudHash);
+			// Obtenim algoritme PBKDF2WithHmacSHA
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			// generem el hash, un array de bytes
+			byte[] hash = factory.generateSecret(spec).getEncoded();
+			System.out.println("Contrasenya inicial: " + password);
+			// pasem el array de bytes en String
+			contrasenyaHash = Base64.getEncoder().encodeToString(hash);
+			System.out.println("Hash Contrasenya inicial:\n" + contrasenyaHash);
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println(e);
+		} catch (InvalidKeySpecException e) {
+			System.out.println(e);
+		}
+		return contrasenyaHash;
 	}
 
 	// Añadir el usuari a la base de datos
 	// guardar usuari en la base de datos
-	public Object guardarUsuari(String inserirNom, String inserirCognoms, String inserirEmail, String inserirPoblacio,
-			String inserirContrasenya) throws ClassNotFoundException {
+	public String guardarUsuari(String inserirNom, String inserirCognoms, String inserirEmail, String inserirPoblacio,
+			String inserirContrasenyaHash, String inserirSalt) throws ClassNotFoundException {
 		try {
 
-			// Carregar el controlador per a la BD 
+			// Carregar el controlador per a la BD
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// Establir la connexió
@@ -214,14 +267,15 @@ public class RegistreController implements Initializable {
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
-			String sentencia = "INSERT INTO usuarios (nom, cognoms, email, poblacio, contrasenya) VALUES (?, ?, ?, ?, ?)";
+			String sentencia = "INSERT INTO usuarios (nom, cognoms, email, poblacio, contasenyaHash, salt) VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement s = c.prepareStatement(sentencia);
 
 			s.setString(1, inserirNom);
 			s.setString(2, inserirCognoms);
 			s.setString(3, inserirEmail);
 			s.setString(4, inserirPoblacio);
-			s.setString(5, inserirContrasenya);
+			s.setString(5, inserirContrasenyaHash);
+			s.setString(6, inserirSalt);
 
 			System.out.println("Executant: " + sentencia);
 			int res = s.executeUpdate();
@@ -241,7 +295,7 @@ public class RegistreController implements Initializable {
 		}
 		return null;
 	}
-	
+
 	// Boto registrar envia a la escena login
 	@FXML
 	public void obrirLogin(ActionEvent event) {
@@ -250,14 +304,34 @@ public class RegistreController implements Initializable {
 			Scene pantallaMenu = new Scene(rootMenu);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			pantallaMenu.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
+			String nom = textoNomRegistre.getText();
+			window.setUserData(nom);
 			window.setScene(pantallaMenu);
-			window.setTitle("Menu");
+			window.setTitle("Login");
 			window.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// Boto registrar envia a la escena login
+	@FXML
+	public void logout(ActionEvent event) {
+		try {
+			VBox rootMenu = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Scene pantallaMenu = new Scene(rootMenu);
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			pantallaMenu.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
+			String nom = textoNomRegistre.getText();
+			window.setUserData(nom);
+			window.setScene(pantallaMenu);
+			window.setTitle("Login");
+			window.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
