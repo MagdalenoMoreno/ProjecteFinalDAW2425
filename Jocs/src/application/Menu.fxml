@@ -41,18 +41,16 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="196.0" prefWidth="800.0" spacing="20.0">
          <children>
+
+
             <ImageView fx:id="imgPixelArt" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirPixelArt" pickOnBounds="true" preserveRatio="true">
+
                <image>
                   <Image url="@img/pixelart.png" />
 
                </image></ImageView>
             <ImageView fx:id="imgBuscaMines" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
-
-               </image>
-            </ImageView>
-            <ImageView fx:id="imgBuscaMines" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
-
-               <image>
+				<image>
                   <Image url="@img/buscamines.png" />
                </image>
             </ImageView>

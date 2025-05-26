@@ -147,7 +147,8 @@ public class MenuController implements Initializable {
 
 	}
 
-	// Boton borrar usuario
+	
+	// Boton borrar usuairo
 	@FXML
 	public void borrarUsuari(ActionEvent event) throws ClassNotFoundException, IOException {
 		try {
@@ -246,10 +247,11 @@ public class MenuController implements Initializable {
 	@FXML
 	public void obrirPixelArt(MouseEvent event) {
 		try {
-			VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("PixelArt.fxml"));
+
+			VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("tamanyPixelart.fxml"));
 			Scene pantallaPixelArt = new Scene(rootPixelArt);
 			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			pantallaPixelArt.getStylesheets().add(getClass().getResource("pixelArt.css").toExternalForm());
+			pantallaPixelArt.getStylesheets().add(getClass().getResource("tamanyPixelart.css").toExternalForm());
 			window.setScene(pantallaPixelArt);
 			window.setTitle("Pixel Art");
 			window.show();
@@ -290,7 +292,8 @@ public class MenuController implements Initializable {
 
 	// Boton cerrar sesion
 	@FXML
-	public void logout(MouseEvent event) {
+
+	public void logout(ActionEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene pantallaIrLogin = new Scene(rootLogout);
@@ -303,14 +306,6 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
-	
-	// Boton borrar usuairo
-	@FXML
-	public void borrarUsuari(MouseEvent event) throws ClassNotFoundException, IOException {
-		try {
-			// Carregar el controlador per a la BD
-			Class.forName("com.mysql.cj.jdbc.Driver");
 
 
 	// Recuperar els datos del objecte usaris
