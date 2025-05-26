@@ -160,7 +160,7 @@ public class RegistreController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "";
+			String contrasenya = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -263,7 +263,7 @@ public class RegistreController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "";
+			String contrasenya = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 

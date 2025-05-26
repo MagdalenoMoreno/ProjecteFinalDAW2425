@@ -157,7 +157,7 @@ public class MenuController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "";
+			String contrasenya = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 			String sentencia = "DELETE FROM usuarios where email = ?";
@@ -191,7 +191,7 @@ public class MenuController implements Initializable {
 				// Establir la connexió
 				String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 				String usuari = "root";
-				String contrasenya = "";
+				String contrasenya = "Lulolo05";
 				Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
 				// Elegir el path de la img
@@ -289,7 +289,8 @@ public class MenuController implements Initializable {
 	}
 
 	// Boton cerrar sesion
-	public void logout(ActionEvent event) {
+	@FXML
+	public void logout(MouseEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene pantallaIrLogin = new Scene(rootLogout);
@@ -302,6 +303,15 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
+	
+	// Boton borrar usuairo
+	@FXML
+	public void borrarUsuari(MouseEvent event) throws ClassNotFoundException, IOException {
+		try {
+			// Carregar el controlador per a la BD
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
 
 	// Recuperar els datos del objecte usaris
 	@Override

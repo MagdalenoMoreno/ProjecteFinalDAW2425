@@ -87,7 +87,7 @@ public class LoginController implements Initializable {
 			}
 
 		} else {
-			alertaError("Email - Contraseña", "El email i la contraseny no coinsidixen ");
+			alertaError("Email - Contraseña", "El email i la contraseny no coincideixen ");
 		}
 
 	}
@@ -110,7 +110,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "";
+			String contrasenya = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -155,7 +155,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "";
+			String contrasenya1 = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
@@ -204,7 +204,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "";
+			String contrasenya1 = "Lulolo05";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
