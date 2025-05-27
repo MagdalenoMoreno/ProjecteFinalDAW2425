@@ -199,7 +199,7 @@ public class RegistreController implements Initializable {
 
 	public String contrasenyaRegistre(String contrasenya, String confirmarContrasenya) {
 		if (!contrasenya.isBlank()) {
-			if (contrasenya.matches("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])\\S{8,16}$")) {
+			if (contrasenya.matches("^(?=.\\d)(?=.[A-Z])(?=.*[a-z])\\S{8,16}$")) {
 				if (contrasenya.equals(confirmarContrasenya)) {
 					return contrasenya;
 				} else {
@@ -236,7 +236,7 @@ public class RegistreController implements Initializable {
 		try {
 			KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, fortalesa, longitudHash);
 			// Obtenim algoritme PBKDF2WithHmacSHA
-			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 			// generem el hash, un array de bytes
 			byte[] hash = factory.generateSecret(spec).getEncoded();
 			System.out.println("Contrasenya inicial: " + password);
