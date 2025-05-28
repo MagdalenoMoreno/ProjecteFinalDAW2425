@@ -199,7 +199,7 @@ public class RegistreController implements Initializable {
 
 	public String contrasenyaRegistre(String contrasenya, String confirmarContrasenya) {
 		if (!contrasenya.isBlank()) {
-			if (contrasenya.matches("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])\\S{8,16}$")) {
+			if (contrasenya.matches("^(?=.\\d)(?=.[A-Z])(?=.*[a-z])\\S{8,16}$")) {
 				if (contrasenya.equals(confirmarContrasenya)) {
 					return contrasenya;
 				} else {

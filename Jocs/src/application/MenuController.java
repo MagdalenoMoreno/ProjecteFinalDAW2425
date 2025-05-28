@@ -156,7 +156,8 @@ public class MenuController implements Initializable {
 
 	}
 
-	// Boton borrar usuario
+	
+	// Boton borrar usuairo
 	@FXML
 	public void borrarUsuari(ActionEvent event) throws ClassNotFoundException, IOException {
 		try {
@@ -254,6 +255,7 @@ public class MenuController implements Initializable {
 
 	@FXML
 	public void obrirPixelArt(MouseEvent event) {
+
 		//finestraOberta dades = finestraOberta.getInstancia();
 		//if (!dades.isOberta()) {
 			try {
@@ -275,6 +277,7 @@ public class MenuController implements Initializable {
 				e.printStackTrace();
 			}
 		//}
+
 	}
 
 	@FXML
@@ -330,6 +333,7 @@ public class MenuController implements Initializable {
 	}
 
 	// Boton cerrar sesion
+
 	public void logout(ActionEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -343,6 +347,7 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 
 	// Recuperar els datos del objecte usaris
 	@Override
