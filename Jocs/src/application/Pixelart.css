@@ -1,6 +1,8 @@
 
 .boto {
-	-fx-border-width:2px;
+
+	-fx-border-width:2.0px;
+
 	-fx-border-color:black;
     -fx-background-color:#0041ff;
     -fx-text-fill:white;
@@ -15,10 +17,12 @@
 #colorpicker {
 
     -fx-background-color: #0041ff;
-    -fx-background-radius: 6px;
+
+    -fx-background-radius: 6.0px;
     -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-radius: 6px;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 6.0px;
+
 }
 
 #colorpicker .label {
@@ -27,16 +31,20 @@
 
 .buida{
 	-fx-border-color: black;
-    -fx-border-width: 1px;
+
+    -fx-border-width: 1.0px;
+
 	-fx-background-color:#e0e0e0;
 }
 
 #tauler {
 
     -fx-background-color: #ffffff;
-    -fx-padding: 20;
+
+    -fx-padding: 20.0;
     -fx-border-color: #cccccc;
-    -fx-border-width: 2px;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
+    -fx-border-width: 2.0px;
+    -fx-border-radius: 12.0;
+    -fx-background-radius: 12.0;
+
 }

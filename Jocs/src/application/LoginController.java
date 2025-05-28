@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -86,7 +87,7 @@ public class LoginController implements Initializable {
 			}
 
 		} else {
-			alertaError("Email - Contraseña", "El email i la contraseny no coincideixen ");
+			alertaError("Email - Contraseña", "El email i la contraseny no coinsidixen ");
 		}
 
 	}
@@ -109,7 +110,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "Lulolo05";
+			String contrasenya = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -154,7 +155,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
+			String contrasenya1 = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
@@ -175,7 +176,6 @@ public class LoginController implements Initializable {
 			System.out.println("Hash BD: " + hashBD);
 			System.out.println("Salt BD: " + saltBase64);
 			
-		        
 			// crear hash
 			KeySpec spec = new PBEKeySpec(contrasenya.toCharArray(), salt, iterations, keyLength);
 
@@ -209,7 +209,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
+			String contrasenya1 = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
@@ -279,6 +279,7 @@ public class LoginController implements Initializable {
 	// Mostrar login con texto Bienvenida
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Font.loadFont(getClass().getResource("/application/tipografia/CutePixel.ttf").toExternalForm(), 24);
 		Platform.runLater(() -> {
 			Stage stage = (Stage) textoBienvenidoLogin.getScene().getWindow();
 			Object userData = stage.getUserData();

@@ -9,6 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TamanyBuscaminesController {
@@ -18,9 +22,25 @@ public class TamanyBuscaminesController {
 
     @FXML
     private Button botoIniciar; 
-
+    
+    @FXML
+    private ImageView imgBandera;
+    
+    @FXML
+    private Text textBenvingut;
+    
+    @FXML
+    private Text textNivell;
+    
     @FXML
     public void initialize() {
+		try {
+			imgBandera.setImage(new Image(getClass().getResource("/application/img/bandera_roja.png").toExternalForm()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
         comboNivel.setItems(FXCollections.observableArrayList(
             "Fàcil", "Mitjà", "Difícil"
         ));

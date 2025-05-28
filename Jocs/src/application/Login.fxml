@@ -22,31 +22,31 @@
                </image></ImageView>
          </children>
          <VBox.margin>
-            <Insets top="70.0" />
+            <Insets top="50.0" />
          </VBox.margin>
       </HBox>
       <HBox alignment="CENTER" prefHeight="35.0" prefWidth="450.0">
          <children>
-            <Separator fx:id="separador" prefHeight="27.0" prefWidth="200.0" />
+            <Separator fx:id="separador" prefHeight="30.0" prefWidth="266.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="47.0" prefWidth="400.0">
          <children>
-            <Label fx:id="textoBienvenidoLogin" text="Bienvenido!" textFill="#0e89cf">
+            <Label fx:id="textoBienvenidoLogin" alignment="CENTER" prefHeight="32.0" prefWidth="245.0" text="Bienvenido!" textFill="#0e89cf">
                <font>
                   <Font name="Consolas Bold" size="24.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="34.0" prefWidth="450.0">
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="34.0" prefWidth="582.0">
          <children>
-            <Separator prefHeight="0.0" prefWidth="200.0" />
+            <Separator prefHeight="30.0" prefWidth="294.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="223.0" prefHeight="75.0" prefWidth="450.0">
          <children>
-            <TextField fx:id="textoEmailLogin" prefHeight="30.0" prefWidth="200.0" promptText="Email">
+            <TextField fx:id="textoEmailLogin" prefHeight="30.0" prefWidth="270.0" promptText="Email">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -61,7 +61,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="79.0" prefWidth="430.0">
          <children>
-            <PasswordField fx:id="textoContrasenyaLogin" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña">
+            <PasswordField fx:id="textoContrasenyaLogin" prefHeight="30.0" prefWidth="270.0" promptText="Contraseña">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -77,9 +77,9 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="98.0" prefWidth="450.0" spacing="15.0">
+      <HBox alignment="CENTER" prefHeight="120.0" prefWidth="450.0" spacing="15.0">
          <children>
-            <Button fx:id="botoLogin" mnemonicParsing="false" onAction="#iniciarSesio" prefHeight="45.0" prefWidth="100.0" text="Iniciar Sesión">
+            <Button fx:id="botoLogin" mnemonicParsing="false" onAction="#iniciarSesio" prefHeight="40.0" prefWidth="125.0" text="Iniciar Sesión">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -87,7 +87,7 @@
                   <Font name="Consolas" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="botoRegistre" mnemonicParsing="false" onAction="#obrirRegistre" prefHeight="45.0" prefWidth="100.0" text="Registrarse">
+            <Button fx:id="botoRegistre" mnemonicParsing="false" onAction="#obrirRegistre" prefHeight="40.0" prefWidth="125.0" text="Registrarse">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>

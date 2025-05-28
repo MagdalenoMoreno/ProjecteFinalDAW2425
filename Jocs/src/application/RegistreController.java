@@ -28,6 +28,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RegistreController implements Initializable {
@@ -94,7 +95,6 @@ public class RegistreController implements Initializable {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// Alertes de errors
@@ -110,7 +110,7 @@ public class RegistreController implements Initializable {
 	public String nomRegistre(String nom) {
 		nom = textoNomRegistre.getText();
 		if (!nom.isBlank()) {
-			if (nom.matches("^[a-zA-Z_-]{3,6}$")) { // no pot tindre numeros
+			if (nom.matches("^[a-zA-Z_-]{3,15}$")) { // no pot tindre numeros
 			} else {
 				alertaError("Nom ", "El formato no es valid. ");
 				return null;
@@ -160,7 +160,7 @@ public class RegistreController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "Lulolo05";
+			String contrasenya = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -263,7 +263,7 @@ public class RegistreController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "Lulolo05";
+			String contrasenya = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -334,6 +334,7 @@ public class RegistreController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Font.loadFont(getClass().getResource("/application/tipografia/CutePixel.ttf").toExternalForm(), 24);
 	}
 
 }
