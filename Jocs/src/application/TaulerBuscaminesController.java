@@ -35,6 +35,15 @@ public class TaulerBuscaminesController {
 	    private Text timer;
 	    @FXML
 	    private Text banderes;
+	    @FXML
+	    private Text textBuscamines;
+	    @FXML
+	    private ImageView imgBandera;
+	    @FXML
+	    private ImageView imgBanderaBomba;
+	    @FXML
+	    private ImageView imgReloj;
+	    
 	    private Timeline timeline;
 	    private boolean jocAcabat=false;
 	    private int casellesBuides;
@@ -97,7 +106,13 @@ public class TaulerBuscaminesController {
 	    
     @FXML
         public void initialize() {
-      
+		try {
+			imgBandera.setImage(new Image(getClass().getResource("/application/img/bandera_roja.png").toExternalForm()));
+			imgBanderaBomba.setImage(new Image(getClass().getResource("/application/img/bandera_bomba.png").toExternalForm()));
+			imgReloj.setImage(new Image(getClass().getResource("/application/img/reloj_grande.png").toExternalForm()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	  iniciarTemporizador();
    
         }

@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
@@ -68,7 +69,6 @@ public class LoginController implements Initializable {
 				System.out.println("Email: " + usuariActual.getEmail());
 				System.out.println("Poblacio: " + usuariActual.getPoblacio());
 				if (usuariActual != null) {
-
 					// obrirMenu(event);
 					VBox rootMenu = (VBox) FXMLLoader.load(getClass().getResource("Menu.fxml"));
 					Scene pantallaMenu = new Scene(rootMenu);
@@ -87,7 +87,7 @@ public class LoginController implements Initializable {
 			}
 
 		} else {
-			alertaError("Email - Contraseña", "El email i la contraseny no coincideixen ");
+			alertaError("Email - Contraseña", "El email i la contraseny no coinsidixen ");
 		}
 
 	}
@@ -110,7 +110,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "Lulolo05";
+			String contrasenya = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
@@ -142,7 +142,7 @@ public class LoginController implements Initializable {
 			String contrasenya = textoContrasenyaLogin.getText();
 
 			int iterations = 65536;
-			int keyLength = 256; // bits
+			int keyLength = 512; // bits
 
 			if (contrasenya.isBlank()) {
 				alertaError("Email", "No pot estar en blanc. ");
@@ -155,7 +155,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
+			String contrasenya1 = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
@@ -163,28 +163,33 @@ public class LoginController implements Initializable {
 			PreparedStatement s = c.prepareStatement(sentencia);
 			s.setString(1, email);
 			ResultSet r = s.executeQuery();
+			
+			if (!r.next()) {
+				alertaError("Login", "Email no encontrado para validar contraseña.");
+				return false;
+			}
+				
+			String hashBD = r.getString("contasenyaHash");
+			String saltBase64 = r.getString("salt");
+			byte[] salt = Base64.getDecoder().decode(saltBase64);
 
-			if (r.next()) {
-				String hashBD = r.getString("contasenyaHash");
-				String saltBase64 = r.getString("salt");
-				byte[] salt = Base64.getDecoder().decode(saltBase64);
+			System.out.println("Hash BD: " + hashBD);
+			System.out.println("Salt BD: " + saltBase64);
+			
+			// crear hash
+			KeySpec spec = new PBEKeySpec(contrasenya.toCharArray(), salt, iterations, keyLength);
 
-				// crear hash
-				KeySpec spec = new PBEKeySpec(contrasenya.toCharArray(), salt, iterations, keyLength);
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+			byte[] hashCalculado = factory.generateSecret(spec).getEncoded();
+			String hashCalculadoBase64 = Base64.getEncoder().encodeToString(hashCalculado);
 
-				SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-				byte[] hashCalculado = factory.generateSecret(spec).getEncoded();
-				String hashCalculadoBase64 = Base64.getEncoder().encodeToString(hashCalculado);
-
-				if (hashCalculadoBase64.equals(hashBD)) {
-					System.out.println("Les contrasenyes coincideixen");
-				} else {
-					System.out.println("Les contrasenyes no coincideixen");
-				}
+			System.out.println("Hash calculado: " + hashCalculadoBase64);
+			
+			if (hashCalculadoBase64.equals(hashBD)) {
+				System.out.println("Les contrasenyes coincideixen");
 				return true;
-
 			} else {
-				alertaError("Contraseña ", "La contraseña no es correcta. ");
+				System.out.println("Les contrasenyes no coincideixen");
 				return false;
 			}
 
@@ -204,7 +209,7 @@ public class LoginController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya1 = "Lulolo05";
+			String contrasenya1 = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya1);
 
@@ -274,6 +279,7 @@ public class LoginController implements Initializable {
 	// Mostrar login con texto Bienvenida
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Font.loadFont(getClass().getResource("/application/tipografia/CutePixel.ttf").toExternalForm(), 24);
 		Platform.runLater(() -> {
 			Stage stage = (Stage) textoBienvenidoLogin.getScene().getWindow();
 			Object userData = stage.getUserData();

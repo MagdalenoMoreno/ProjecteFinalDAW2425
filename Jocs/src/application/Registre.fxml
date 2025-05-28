@@ -30,12 +30,12 @@
             <Insets bottom="30.0" top="30.0" />
          </padding>
          <children>
-            <Separator prefHeight="369.0" prefWidth="200.0" />
+            <Separator prefHeight="10.0" prefWidth="285.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <TextField fx:id="textoNomRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Nom">
+            <TextField fx:id="textoNomRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Nom">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -50,7 +50,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="122.0" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <TextField fx:id="textoCognomsRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Cognoms">
+            <TextField fx:id="textoCognomsRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Cognoms">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -65,7 +65,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="223.0" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <TextField fx:id="textoEmailRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Email">
+            <TextField fx:id="textoEmailRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Email">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -80,7 +80,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="120.0" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <TextField fx:id="textoPoblacioRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Poblacio">
+            <TextField fx:id="textoPoblacioRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Poblacio">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -95,7 +95,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <PasswordField fx:id="textoContrasenyaRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña">
+            <PasswordField fx:id="textoContrasenyaRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Contraseña">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -113,7 +113,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="332.0" prefHeight="75.0" prefWidth="400.0">
          <children>
-            <PasswordField fx:id="textoConfirmarContrasenyaRegistre" prefHeight="30.0" prefWidth="200.0" promptText="Confirmar Contraseña">
+            <PasswordField fx:id="textoConfirmarContrasenyaRegistre" prefHeight="30.0" prefWidth="270.0" promptText="Confirmar Contraseña">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -128,7 +128,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="129.0" prefWidth="450.0" spacing="15.0">
          <children>
-            <Button fx:id="botoVolverInici" alignment="CENTER" mnemonicParsing="false" onAction="#obrirLogin" prefHeight="45.0" prefWidth="100.0" text="Inici">
+            <Button fx:id="botoVolverInici" alignment="CENTER" mnemonicParsing="false" onAction="#obrirLogin" prefHeight="45.0" prefWidth="130.0" text="Inici">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -136,7 +136,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="botoRegistreEnviar" alignment="CENTER" mnemonicParsing="false" onAction="#registrarUsuari" prefHeight="45.0" prefWidth="100.0" text="Registrarse">
+            <Button fx:id="botoRegistreEnviar" alignment="CENTER" mnemonicParsing="false" onAction="#registrarUsuari" prefHeight="45.0" prefWidth="130.0" text="Registrarse">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>

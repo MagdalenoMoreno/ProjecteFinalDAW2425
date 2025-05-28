@@ -3,24 +3,17 @@
     src: url("tipografia/CutePixel.ttf");
 }
 
-#textBenvingut {
+.text {
 	-fx-font-family: "CutePixel";
-    -fx-font-size: 64.0px;
-    -fx-text-fill: #2196F3;
-}
-
-#textNivell {
-	-fx-font-family: "CutePixel";
-    -fx-font-size: 24.0px;
-    -fx-text-fill: #2196F3;
+    -fx-font-size: 36.0px;
 }
 
 #botoIniciar {
-    -fx-background-color: #2196F3;
+	-fx-background-color: #2196F3;
     -fx-text-fill: white;
     -fx-background-radius: 3.0;
     -fx-font-family: "CutePixel";
-    -fx-font-size: 24.0px; 
+    -fx-font-size: 18.0px; 
 }
 
 #botoIniciar:hover {
@@ -30,7 +23,6 @@
 
 #comboNivel{
 	-fx-font-family: "CutePixel";
-	-fx-font-size: 18.0px;
 	-fx-border-width:1.0px;
 	-fx-border-color: #4994ec;
 	-fx-color:daf6ff;

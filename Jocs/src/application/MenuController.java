@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -53,6 +54,10 @@ public class MenuController implements Initializable {
 	private ImageView avatarImg;
 	@FXML
 	private Label textoBienvenido;
+	@FXML
+	private Label textoJuegos;
+	@FXML
+	private ImageView imgAjustes;
 	@FXML
 	private ImageView imgBuscaMines;
 	@FXML
@@ -94,6 +99,10 @@ public class MenuController implements Initializable {
 				itemBorrarUsuari = new MenuItem("Eliminar cuenta");
 				itemTanca = new MenuItem("Cerrar sesión");
 				separador = new SeparatorMenuItem();
+
+				itemCambiarFoto.setStyle("-fx-font-family: 'CutePixel'; -fx-font-size: 14px;");
+				itemBorrarUsuari.setStyle("-fx-font-family: 'CutePixel'; -fx-font-size: 14px;");
+				itemTanca.setStyle("-fx-font-family: 'CutePixel'; -fx-font-size: 14px;");
 
 				// Añadir les opcions al menu
 				menuFoto.getItems().addAll(itemCambiarFoto, separador, itemBorrarUsuari, itemTanca);
@@ -157,7 +166,7 @@ public class MenuController implements Initializable {
 			// Establir la connexió
 			String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 			String usuari = "root";
-			String contrasenya = "Lulolo05";
+			String contrasenya = "";
 
 			Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 			String sentencia = "DELETE FROM usuarios where email = ?";
@@ -191,7 +200,7 @@ public class MenuController implements Initializable {
 				// Establir la connexió
 				String urlBaseDades = "jdbc:mysql://localhost:3306/cal";
 				String usuari = "root";
-				String contrasenya = "Lulolo05";
+				String contrasenya = "";
 				Connection c = DriverManager.getConnection(urlBaseDades, usuari, contrasenya);
 
 				// Elegir el path de la img
@@ -245,52 +254,83 @@ public class MenuController implements Initializable {
 
 	@FXML
 	public void obrirPixelArt(MouseEvent event) {
-		try {
-			VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("PixelArt.fxml"));
-			Scene pantallaPixelArt = new Scene(rootPixelArt);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			pantallaPixelArt.getStylesheets().add(getClass().getResource("pixelArt.css").toExternalForm());
-			window.setScene(pantallaPixelArt);
-			window.setTitle("Pixel Art");
-			window.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//finestraOberta dades = finestraOberta.getInstancia();
+		//if (!dades.isOberta()) {
+			try {
+				VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("TamanyPixelart.fxml"));
+				Scene pantallaPixelArt = new Scene(rootPixelArt);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				pantallaPixelArt.getStylesheets().add(getClass().getResource("tamanyPixelart.css").toExternalForm());
+				window.setScene(pantallaPixelArt);
+				window.setTitle("Pixel Art");
+				window.show();
+
+				//dades.setOberta(true);
+
+				/*window.setOnCloseRequest(x -> {
+					dades.setOberta(false);
+				});*/
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//}
 	}
 
 	@FXML
 	public void obrirJocVida(MouseEvent event) {
-		try {
-			VBox rootJocVida = (VBox) FXMLLoader.load(getClass().getResource("JocVida.fxml"));
-			Scene pantallaJocVida = new Scene(rootJocVida);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			pantallaJocVida.getStylesheets().add(getClass().getResource("jocVida.css").toExternalForm());
-			window.setScene(pantallaJocVida);
-			window.setTitle("Joc de la vida");
-			window.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//finestraOberta dades = finestraOberta.getInstancia();
+		//if (!dades.isOberta()) {
+			try {
+				VBox rootJocVida = (VBox) FXMLLoader.load(getClass().getResource("JocVida.fxml"));
+				Scene pantallaJocVida = new Scene(rootJocVida);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				pantallaJocVida.getStylesheets().add(getClass().getResource("jocVida.css").toExternalForm());
+				window.setScene(pantallaJocVida);
+				window.setTitle("Joc de la vida");
+				window.show();
+
+				//dades.setOberta(true);
+
+				/*window.setOnCloseRequest(x -> {
+					dades.setOberta(false);
+				});*/
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//}
 	}
 
 	@FXML
 	public void obrirWordles(MouseEvent event) {
-		try {
-			VBox rootWordles = (VBox) FXMLLoader.load(getClass().getResource("Wordle.fxml"));
-			Scene pantallaWordles = new Scene(rootWordles);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			pantallaWordles.getStylesheets().add(getClass().getResource("wordle.css").toExternalForm());
-			window.setScene(pantallaWordles);
-			window.setTitle("Wordle");
-			window.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//finestraOberta dades = finestraOberta.getInstancia();
+		//if (!dades.isOberta()) {
+			try {
+				VBox rootWordles = (VBox) FXMLLoader.load(getClass().getResource("Wordle.fxml"));
+				Scene pantallaWordles = new Scene(rootWordles);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				pantallaWordles.getStylesheets().add(getClass().getResource("Wordle.css").toExternalForm());
+				window.setScene(pantallaWordles);
+				window.setTitle("Wordle");
+				window.show();
+
+				//dades.setOberta(true);
+
+				/*window.setOnCloseRequest(x -> {
+					dades.setOberta(false);
+				});*/
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//}
 	}
 
 	// Boton cerrar sesion
-	@FXML
-	public void logout(MouseEvent event) {
+	public void logout(ActionEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene pantallaIrLogin = new Scene(rootLogout);
@@ -304,18 +344,26 @@ public class MenuController implements Initializable {
 		}
 	}
 
-	
-	// Boton borrar usuairo
-	@FXML
-	public void borrarUsuari(MouseEvent event) throws ClassNotFoundException, IOException {
-		try {
-			// Carregar el controlador per a la BD
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-
 	// Recuperar els datos del objecte usaris
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Font.loadFont(getClass().getResource("/application/tipografia/CutePixel.ttf").toExternalForm(), 24);
+
+		try {
+			imgAjustes.setImage(new Image(getClass().getResource("/application/img/boto_ajustes.png").toExternalForm()));
+
+			imgBuscaMines.setImage(new Image(getClass().getResource("/application/img/img_buscamines.png").toExternalForm()));
+
+			imgPixelArt.setImage(new Image(getClass().getResource("/application/img/img_pixelart.png").toExternalForm()));
+
+			imgJocVida.setImage(new Image(getClass().getResource("/application/img/img_jocvida.png").toExternalForm()));
+
+			imgWordles.setImage(new Image(getClass().getResource("/application/img/img_wordle.png").toExternalForm()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		Platform.runLater(() -> {
 			Stage window = (Stage) root.getScene().getWindow();
 			if (window != null) {

@@ -13,74 +13,91 @@
    <children>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="800.0">
          <children>
-            <ImageView fx:id="avatarImg" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#menuDesplegable" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="avatarImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/usuari_default.png" />
                </image>
                <HBox.margin>
-                  <Insets left="70.0" />
+                  <Insets />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="textoBienvenido" minWidth="200.0" prefHeight="31.0" prefWidth="263.0" text="Bienvenido!" textAlignment="CENTER" textFill="#0e89cf">
+            <Label fx:id="textoBienvenido" minWidth="153.0" prefHeight="31.0" prefWidth="312.0" text="Bienvenido!" textAlignment="CENTER" textFill="#0e89cf">
                <font>
                   <Font name="Consolas Bold" size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" right="150.0" />
                </HBox.margin>
             </Label>
+            <ImageView fx:id="imgAjustes" fitHeight="34.0" fitWidth="33.0" onMouseClicked="#menuDesplegable" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/boto_ajustes.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="200.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
          <VBox.margin>
-            <Insets top="30.0" />
+            <Insets top="20.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="TOP_CENTER" prefHeight="188.0" prefWidth="800.0">
+      <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="800.0">
          <children>
-            <Separator prefHeight="22.0" prefWidth="300.0" />
+            <Separator prefHeight="25.0" prefWidth="752.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="196.0" prefWidth="800.0" spacing="20.0">
+      <HBox alignment="CENTER" prefHeight="21.0" prefWidth="800.0">
+         <children>
+            <Label fx:id="textoJuegos" minWidth="84.0" prefHeight="28.0" prefWidth="84.0" text="JUEGOS" textAlignment="CENTER" textFill="#0e89cf">
+               <font>
+                  <Font name="Consolas Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="800.0">
+         <children>
+            <Separator prefHeight="19.0" prefWidth="385.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="164.0" prefWidth="800.0" spacing="10.0">
          <children>
             <ImageView fx:id="imgPixelArt" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirPixelArt" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/pixelart.png" />
-
-               </image></ImageView>
-            <ImageView fx:id="imgBuscaMines" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
-
+                  <Image url="@img/img_pixelart.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgBuscaMines" fitHeight="190.0" fitWidth="290.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
-
+            <ImageView fx:id="imgBuscaMines" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirBuscaMines" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/buscamines.png" />
+                  <Image url="@img/img_buscamines.png" />
                </image>
             </ImageView>
          </children>
          <VBox.margin>
-            <Insets bottom="20.0" />
+            <Insets bottom="10.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="800.0" spacing="20.0">
+      <HBox alignment="CENTER" prefHeight="156.0" prefWidth="800.0" spacing="10.0">
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <children>
-            <ImageView fx:id="imgJocVida" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirJocVida" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgJocVida" fitHeight="150.0" fitWidth="241.0" onMouseClicked="#obrirJocVida" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/jocdelavida.png" />
+                  <Image url="@img/img_jocvida.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgWordles" fitHeight="150.0" fitWidth="190.0" onMouseClicked="#obrirWordles" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/wordle.png" />
+                  <Image url="@img/img_wordle.png" />
                </image>
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="TOP_CENTER" prefHeight="256.0" prefWidth="800.0">
+      <HBox alignment="TOP_CENTER" prefHeight="65.0" prefWidth="800.0">
          <children>
-            <Separator prefHeight="28.0" prefWidth="300.0" />
+            <Separator prefHeight="29.0" prefWidth="385.0" />
          </children>
       </HBox>
    </children>

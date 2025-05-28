@@ -9,38 +9,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class TamanyBuscaminesController {
+public class TamanyPixelartController {
 
     @FXML
     private ComboBox<String> comboNivel;
 
     @FXML
     private Button botoIniciar; 
-    
-    @FXML
-    private ImageView imgBandera;
-    
-    @FXML
-    private Text textBenvingut;
-    
-    @FXML
-    private Text textNivell;
-    
+
     @FXML
     public void initialize() {
-		try {
-			imgBandera.setImage(new Image(getClass().getResource("/application/img/bandera_roja.png").toExternalForm()));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
         comboNivel.setItems(FXCollections.observableArrayList(
             "Fàcil", "Mitjà", "Difícil"
         ));
@@ -55,16 +35,16 @@ public class TamanyBuscaminesController {
             String nivel = comboNivel.getSelectionModel().getSelectedItem();
         
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("TaulerBuscamines.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Pixelart.fxml"));
             Parent root = loader.load();
             
-            TaulerBuscaminesController controlador = loader.getController();
+            PixelartController controlador = loader.getController();
             controlador.setNivell(nivel);
 
             Stage stage = (Stage) comboNivel.getScene().getWindow();
             Scene scene = new Scene(root);
             
-            scene.getStylesheets().add(getClass().getResource("taulerBuscamines.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("Pixelart.css").toExternalForm());
             
             stage.setScene(scene);
             stage.show();
