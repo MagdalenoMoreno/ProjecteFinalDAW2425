@@ -12,14 +12,14 @@ package application;
 	        try {
 	  
 	            FXMLLoader loader = new FXMLLoader(
-	                getClass().getResource("/application/Wordle.fxml")
+	                getClass().getResource("/application/ElegirTamanyJocDeLaVida.fxml")
 	            );
 	            VBox root = loader.load();
 
 	            Scene scene = new Scene(root, 800, 500);
 	         
 	            scene.getStylesheets().add(
-	                getClass().getResource("/application/Wordle.css").toExternalForm()
+	                getClass().getResource("/application/JocDeLaVida.css").toExternalForm()
 	            );
 
 	            primaryStage.setTitle("Polno");
