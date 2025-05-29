@@ -55,7 +55,6 @@ public class WordleController implements Initializable {
 	////////////////CONTROLADOR DE EVENTOS\\\\\\\\\\\\\\\\\\\\\
 	@FXML
 	public void enter(KeyEvent e) {
-		
 		if (e.getCode() == KeyCode.F5) {
 				reintentar();
 		} 
@@ -489,7 +488,7 @@ public class WordleController implements Initializable {
 	public String palabraFinal(int num) {
 		int contador = 0;
 		String aux = "";
-		try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\adria\\Desktop\\ProjecteJava2425\\ProjecteFinalDAW2425\\Jocs\\src\\application\\paraules"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader("src\\application\\paraules.txt"))) {
 			String linea;
 			while ((linea = br.readLine()) != null) {
 				if (contador == num) {
