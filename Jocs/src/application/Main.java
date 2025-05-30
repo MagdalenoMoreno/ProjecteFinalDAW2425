@@ -12,8 +12,8 @@ public class Main extends Application {
 	@Override
 
 	public void start(Stage primaryStage) {
-		finestraOberta dades = finestraOberta.getInstancia();
 		
+		finestraOberta dades = finestraOberta.getInstancia();
 		if (!dades.isOberta()) {
 			try {
 				VBox rootLogin = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));

@@ -3,6 +3,7 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ public class JocDeLaVidaController implements Initializable {
 
 	@FXML
 	private VBox pagina;
+
 	
 	@FXML
 	private GridPane taula;
@@ -32,6 +34,7 @@ public class JocDeLaVidaController implements Initializable {
 	
 	public void inicializarTablero(String grandaria) {
 		
+
 		if (grandaria.equals("peq")) {
 			celdas = 17;
 			tamanyo = 10;
@@ -59,6 +62,7 @@ public class JocDeLaVidaController implements Initializable {
 			taula.setMinSize(gridPaneLado, gridPaneLado);
 			taula.setPrefSize(gridPaneLado, gridPaneLado);
 		}
+
 		
 		taula.getRowConstraints().clear();
 		taula.getColumnConstraints().clear();
@@ -68,6 +72,7 @@ public class JocDeLaVidaController implements Initializable {
 		    taula.getRowConstraints().add(new RowConstraints(tamanyo));
 		}
 		
+
 		matriu = new Label[celdas][celdas];
 		for (int i = 0; i < matriu.length; i++) {
 			for (int j = 0; j < matriu[i].length; j++) {
@@ -81,7 +86,7 @@ public class JocDeLaVidaController implements Initializable {
 				taula.add(lb, j, i);
 			}
 		}
-		
+
 		System.out.println(grandaria);
 	}
 

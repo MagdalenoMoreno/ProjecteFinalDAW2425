@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
 <VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ElegirTamanyJocDeLaVidaController">
    <children>
       <VBox prefHeight="500.0" prefWidth="800.0">
@@ -17,6 +18,7 @@
             <VBox alignment="CENTER" fillWidth="false" prefHeight="61.0" prefWidth="400.0">
                <children>
                   <Label alignment="CENTER" prefHeight="80.0" prefWidth="192.0" text="JOC DE LA VIDA">
+
                      <font>
                         <Font name="Franklin Gothic Medium" size="24.0" />
                      </font>
@@ -26,6 +28,7 @@
                   <Insets />
                </opaqueInsets>
                <VBox.margin>
+
                   <Insets left="200.0" right="200.0" />
                </VBox.margin>
             </VBox>
@@ -40,12 +43,14 @@
                </VBox.margin>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Escoge un tamaño de tablero" textAlignment="CENTER" wrappingWidth="346.078125">
+
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
+
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="800.0" spacing="50.0">
                <VBox.margin>
                   <Insets />
@@ -61,14 +66,17 @@
                   <VBox alignment="CENTER" prefHeight="28.0" prefWidth="617.0">
                      <children>
                         <CheckBox fx:id="pers" mnemonicParsing="false" onMouseClicked="#activar" text="Personalizado" />
+
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </VBox>
+
                   <HBox fx:id="desactivar" alignment="CENTER" prefHeight="30.0" prefWidth="800.0">
                      <children>
                         <Text fx:id="engrisecer" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de casillas: " />
+
                         <TextField fx:id="numCasillas" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="51.0">
                            <HBox.margin>
                               <Insets left="5.0" />
@@ -79,6 +87,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
+
                   <HBox alignment="CENTER" prefHeight="22.0" prefWidth="800.0">
                      <children>
                         <Text fx:id="textoDesa" strokeType="OUTSIDE" strokeWidth="0.0" text="(El número de casillas será modificado en caso de que no sean suficientes para completar la matriz de células)" />
@@ -99,6 +108,7 @@
                         <Font size="30.0" />
                      </font>
                   </Button>
+
                </children>
             </HBox>
          </children>

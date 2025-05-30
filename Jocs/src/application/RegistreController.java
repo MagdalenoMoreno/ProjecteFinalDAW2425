@@ -28,7 +28,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RegistreController implements Initializable {
@@ -309,6 +308,7 @@ public class RegistreController implements Initializable {
 			window.setScene(pantallaMenu);
 			window.setTitle("Login");
 			window.show();
+	        finestraOberta.getInstancia().setOberta(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -334,7 +334,6 @@ public class RegistreController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Font.loadFont(getClass().getResource("/application/tipografia/CutePixel.ttf").toExternalForm(), 24);
 	}
 
 }
