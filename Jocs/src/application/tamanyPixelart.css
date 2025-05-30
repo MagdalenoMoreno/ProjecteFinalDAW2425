@@ -1,4 +1,5 @@
 
+
 @font-face {
     src: url("tipografia/CutePixel.ttf");
 }
@@ -29,9 +30,11 @@
 }
 
 #comboNivel{
+
 	-fx-font-family: "CutePixel";
 	-fx-font-size: 18.0px;
 	-fx-border-width:1.0px;
+
 	-fx-border-color: #4994ec;
 	-fx-color:daf6ff;
 }
@@ -44,7 +47,9 @@
 #comboNivel.list-cell:focused {
     -fx-background-color: white;
     -fx-text-fill: black;
+
     -fx-font-family: "CutePixel";
+
 
 }
 

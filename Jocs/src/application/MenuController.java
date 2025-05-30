@@ -154,7 +154,8 @@ public class MenuController implements Initializable {
 
 	}
 
-	// Boton borrar usuario
+	
+	// Boton borrar usuairo
 	@FXML
 	public void borrarUsuari(ActionEvent event) throws ClassNotFoundException, IOException {
 		try {
@@ -288,8 +289,9 @@ public class MenuController implements Initializable {
 
 	@FXML
 	public void obrirPixelArt(MouseEvent event) {
-		finestraOberta dades = finestraOberta.getInstancia();
-		if (!dades.isOberta()) {
+		//finestraOberta dades = finestraOberta.getInstancia();
+		//if (!dades.isOberta()) {
+
 			try {
 				VBox rootPixelArt = (VBox) FXMLLoader.load(getClass().getResource("TamanyPixelart.fxml"));
 				Scene pantallaPixelArt = new Scene(rootPixelArt);
@@ -317,9 +319,10 @@ public class MenuController implements Initializable {
 				e.printStackTrace();
 				alertaError("Error al abrir BuscaMines","Ha ocurrido un error al intentar abrir el juego. Intenta de nuevo.");
 			}
-		} else {
-			alertaError("Ventana abierta", "Ya hay una partida de Pixel Art en curso. Ciérrala antes de abrir otra.");
-		}
+
+		//}
+
+
 	}
 
 	@FXML
@@ -396,6 +399,7 @@ public class MenuController implements Initializable {
 	}
 
 	// Boton cerrar sesion
+
 	public void logout(ActionEvent event) {
 		try {
 			VBox rootLogout = (VBox) FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -410,14 +414,7 @@ public class MenuController implements Initializable {
 		}
 	}
 
-	// Funcio de les alertes
-	public void alertaError(String camp, String error) {
-		Alert alerta = new Alert(AlertType.WARNING);
-		alerta.setTitle("Error abriendo un juego. ");
-		alerta.setHeaderText("Error en el '" + camp + "'. ");
-		alerta.setContentText(error);
-		alerta.showAndWait();
-	}
+
 
 	// Recuperar els datos del objecte usaris
 	@Override

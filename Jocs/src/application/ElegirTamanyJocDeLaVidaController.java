@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.scene.control.Label;
-import javafx.event.ActionEvent;
+
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,9 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
+
 import javafx.stage.Stage;
 
 public class ElegirTamanyJocDeLaVidaController implements Initializable {
@@ -30,43 +30,28 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 	int numCeldas = 0;
 	String grande = "";
 
+	
 	@FXML
-	private CheckBox peq;
+	private CheckBox peq;	
 	@FXML
-	private CheckBox med;
+	private CheckBox med;	
 	@FXML
-	private CheckBox gran;
+	private CheckBox gran;	
 	@FXML
-	private CheckBox pers;
+	private CheckBox pers;	
 	@FXML
-	private HBox desactivar;
+	private HBox desactivar;	
+	@FXML
+	private Text engrisecer;
+
 	@FXML
 	private Text textoDesa;
 	@FXML
 	private Button jugar;
-	@FXML
-	private TextField numCasillas;
-	@FXML
-	private Label textBenvingut;
-	@FXML
-	private Text textTamany;
 
-	// Boto que envia a la escena menu
-	@FXML
-	public void obrirMenu(ActionEvent event) {
-		try {
-			VBox rootMenu = (VBox) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-			Scene pantallaMenu = new Scene(rootMenu);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			pantallaMenu.getStylesheets().add(getClass().getResource("menu.css").toExternalForm());
-			window.setScene(pantallaMenu);
-			window.setTitle("Menu");
-			window.close();
-			finestraOberta.getInstancia().setOberta(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	@FXML 
+	private TextField numCasillas;
+	
 
 	@FXML
 	public void clicarPeq(MouseEvent e) {
@@ -75,7 +60,10 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 		pers.setSelected(false);
 		desactivar.setDisable(true);
 		textoDesa.setVisible(false);
-	}
+
+		engrisecer.setStyle("-fx-fill: grey;");
+	
+	
 
 	@FXML
 	public void clicarMed(MouseEvent e) {
@@ -84,7 +72,10 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 		pers.setSelected(false);
 		desactivar.setDisable(true);
 		textoDesa.setVisible(false);
+
+		engrisecer.setStyle("-fx-fill: grey;");
 	}
+	
 
 	@FXML
 	public void clicarGran(MouseEvent e) {
@@ -93,7 +84,9 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 		pers.setSelected(false);
 		desactivar.setDisable(true);
 		textoDesa.setVisible(false);
+		engrisecer.setStyle("-fx-fill: grey;");
 	}
+	
 
 	@FXML
 	public void activar(MouseEvent e) {
@@ -103,17 +96,19 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 		if (pers.isSelected()) {
 			desactivar.setDisable(false);
 			textoDesa.setVisible(true);
-			numCasillas.setVisible(true);
+			engrisecer.setStyle("-fx-fill: black;");
+			
 		} else {
 			desactivar.setDisable(true);
 			textoDesa.setVisible(false);
-			numCasillas.setVisible(false);
+			engrisecer.setStyle("-fx-fill: grey;");
 		}
 	}
-
+	
 	@FXML
 	public void juego() {
 		int fallo = 0;
+		
 
 		try {
 			numCeldas = Integer.parseInt(numCasillas.getText());
@@ -158,8 +153,8 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 				alerta("Debes usar números enteros");
 			} else if (fallo == 2) {
 				alerta("Lo siento, la cifra de células marcadas no está disponible");
-			} else {
-
+			}  else {
+				
 				try {
 					grande = "pers";
 					abrirNuevaVentana();
@@ -195,61 +190,44 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 			auxAbajo--;
 			if (auxArriba > 22500) {
 
+				
 			} else if (auxAbajo < 9) {
-
+				
 			} else if (Math.sqrt(auxArriba) == (int) Math.sqrt(auxArriba)) {
 				numCeldas = auxArriba;
 				correcte = true;
-
+				
 			} else if (Math.sqrt(auxAbajo) == (int) Math.sqrt(auxAbajo)) {
 				numCeldas = auxAbajo;
 				correcte = true;
-
+				
 			}
 		}
-
+		
 		numCasillas.setText("" + numCeldas);
 	}
-
+	
 	public void abrirNuevaVentana() throws IOException {
-		/*FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/JocDeLaVida.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/JocDeLaVida.fxml"));
 		Parent root = loader.load();
-
+		
 		JocDeLaVidaController controller = loader.getController();
 		controller.celdas = numCeldas;
-
+		
 		controller.inicializarTablero(grande);
+		
 
 		Stage nuevaVentana = new Stage();
 		nuevaVentana.setTitle("Otra pantalla");
 		nuevaVentana.setScene(new Scene(root));
 		nuevaVentana.show();
 
+		
 		Stage ventanaActual = (Stage) jugar.getScene().getWindow();
-		ventanaActual.close();
-		 */
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/JocDeLaVida.fxml"));
-        Parent root = loader.load();
-
-        JocDeLaVidaController controller = loader.getController();
-
-        controller.celdas = numCeldas;  
-        controller.inicializarTablero(grande); 
-
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setTitle("Joc De La Vida - Tablero");
-        nuevaVentana.setScene(new Scene(root));
-
-        Stage ventanaActual = (Stage) jugar.getScene().getWindow();
-        nuevaVentana.initOwner(ventanaActual.getOwner()); 
-        nuevaVentana.initModality(Modality.APPLICATION_MODAL);
-
-        nuevaVentana.show();
-
-        // Cerramos la ventana de selección
         ventanaActual.close();
+		
 	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -259,7 +237,7 @@ public class ElegirTamanyJocDeLaVidaController implements Initializable {
 		pers.setSelected(false);
 		desactivar.setDisable(true);
 		textoDesa.setVisible(false);
-		numCasillas.setVisible(false);
+		engrisecer.setStyle("-fx-fill: grey;");
 	}
-
+	
 }
