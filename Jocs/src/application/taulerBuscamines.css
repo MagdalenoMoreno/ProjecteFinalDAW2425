@@ -1,3 +1,6 @@
+@font-face {
+    src: url("tipografia/CutePixel.ttf");
+}
 
 #textBuscamines{
 	-fx-font-family: "CutePixel";
@@ -15,6 +18,11 @@
 	-fx-font-family: "CutePixel";
     -fx-font-size: 32.0px;
     -fx-text-fill: #2196F3;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .clar {
